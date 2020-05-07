@@ -6,7 +6,7 @@ import tkinter as tk
 plt.rcParams['toolbar'] = 'toolmanager'
 #.rcParams['font.family'] = 'monospace'
 plt.rcParams['figure.figsize'] = 9.6, 7.2
-dark = True
+dark = False
 traces = {}
 colors = {}
 def main():
