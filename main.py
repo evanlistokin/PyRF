@@ -89,7 +89,9 @@ class MarkButton(ToolBase):
     default_keymap = 'm, M'
     def trigger(self, *args, **kwargs):
         res = markbox(traces_active, f_unit).show()
-        if not res == False:
+        if res is False:
+            pass
+        else:
             mark(res[1],str(res[0]+str.lower(f_unit)))
         
 
