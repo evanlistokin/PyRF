@@ -61,7 +61,6 @@ def main():
         data_file)), fontsize=8, family='monospace')
     fig.text(0.01, 0.01, data_file, fontsize=8, family='monospace')
     mark("S21", "1000mhz")
-    # plt.tight_layout()
     plt.show()
 
 
