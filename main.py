@@ -47,7 +47,7 @@ def main():
     for trace in traces.keys():
         fig.canvas.manager.toolmanager.add_tool(
             trace, GroupHideTool, gid=trace)
-        fig.canvas.manager.toolbar.add_tool(trace, 'trace')
+        fig.canvas.manager.toolbar.add_tool(trace, 'trace') 
 
     l1 = "Start: " + str(data.frequency.start_scaled) + " " + data.frequency.unit + \
         " Stop: " + str(data.frequency.stop_scaled) + " " + data.frequency.unit
