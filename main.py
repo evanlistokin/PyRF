@@ -149,20 +149,20 @@ class markbox(simpledialog.Dialog):
     result = False
 
     def __init__(self, traces, fscale):
-        me = self.top = tk.Toplevel()
-        me.grid()
-        me.grid_columnconfigure(0, pad=10)
-        me.grid_columnconfigure(1, pad=10)
+        tktop = self.top = tk.Toplevel()
+        tktop.grid()
+        tktop.grid_columnconfigure(0, pad=10)
+        tktop.grid_columnconfigure(1, pad=10)
 
-        self.textbox1 = tk.Entry(me)
-        self.listbox1 = tk.Listbox(me, height=4)
+        self.textbox1 = tk.Entry(tktop)
+        self.listbox1 = tk.Listbox(tktop, height=4)
         self.button_ok = tk.Button(
-            me,
+            tktop,
             command=lambda: self.ok_click(self.textbox1.get(),
                                           self.listbox1.get(tk.ACTIVE)),
             text='OK',
             width=10)
-        self.button_cancel = tk.Button(me,
+        self.button_cancel = tk.Button(tktop,
                                        command=lambda: self.cancel_click(),
                                        text='Cancel',
                                        width=10)
@@ -175,9 +175,9 @@ class markbox(simpledialog.Dialog):
         for trace in traces:
             self.listbox1.insert(tk.END, trace)
 
-        self.label0 = tk.Label(me, text='Enter values to add trace:')
-        self.label1 = tk.Label(me, text='Trace: ')
-        self.label2 = tk.Label(me, text='Frequency (' + fscale + "):")
+        self.label0 = tk.Label(tktop, text='Enter values to add trace:')
+        self.label1 = tk.Label(tktop, text='Trace: ')
+        self.label2 = tk.Label(tktop, text='Frequency (' + fscale + "):")
         self.label0.grid(row=0, columnspan=2, sticky=tk.W, padx=5, pady=5)
         self.label1.grid(row=1, column=0, sticky=tk.NW, padx=5, pady=5)
         self.label2.grid(row=2, column=0, sticky=tk.W, padx=5, pady=5)
