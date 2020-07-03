@@ -1,11 +1,12 @@
-import sys
 import os
+import sys
 import time
+import tkinter as tk
+from tkinter import simpledialog
+
 import skrf as rf
 from matplotlib import pyplot as plt
 from matplotlib.backend_tools import ToolBase, ToolToggleBase
-import tkinter as tk
-from tkinter import simpledialog
 
 plt.rcParams['toolbar'] = 'toolmanager'
 # .rcParams['font.family'] = 'monospace'
@@ -43,20 +44,29 @@ def main():
     fig.canvas.manager.toolmanager.add_tool('Add Marker', MarkButton)
     fig.canvas.manager.toolbar.add_tool('Add Marker', 'marker', MarkButton)
     fig.canvas.manager.toolmanager.add_tool('Remove Markers', RemoveButton)
-    fig.canvas.manager.toolbar.add_tool(
-        'Remove Markers', 'marker', RemoveButton)
+    fig.canvas.manager.toolbar.add_tool('Remove Markers', 'marker',
+                                        RemoveButton)
     for trace in traces.keys():
-        fig.canvas.manager.toolmanager.add_tool(
-            trace, GroupHideTool, gid=trace)
+        fig.canvas.manager.toolmanager.add_tool(trace,
+                                                GroupHideTool,
+                                                gid=trace)
         fig.canvas.manager.toolbar.add_tool(trace, 'trace')
 
-    fig.text(0.99, 0.01, str(data.frequency),
-             fontsize=8, family='monospace', ha='right')
+    fig.text(0.99,
+             0.01,
+             str(data.frequency),
+             fontsize=8,
+             family='monospace',
+             ha='right')
 
-    fig.text(0.01, 0.035, time.ctime(os.path.getctime(
-        data_file)), fontsize=8, family='monospace')
+    fig.text(0.01,
+             0.035,
+             time.ctime(os.path.getctime(data_file)),
+             fontsize=8,
+             family='monospace')
 
-    fig.text(0.01, 0.01, data_file, fontsize=8, family='monospace')
+    fig.text(0.01, 0.01, data_file, fontsize=8, family='monospace;')
+
     mark("S21", "1000mhz")
     plt.show()
 
@@ -68,13 +78,21 @@ class mark():
         self.y = y = float(traces[trace][frequency].s_db)
         self.x = x = float(traces[trace][frequency].frequency.f)
         self.plot = plt.plot(x, y, marker="|", color='black')
-        self.text1 = plt.annotate(round(y, 4), xy=(x, y),
-                                  textcoords="offset points", xytext=(0, 16), fontsize=10, family='monospace')
+        self.text1 = plt.annotate(round(y, 4),
+                                  xy=(x, y),
+                                  textcoords="offset points",
+                                  xytext=(0, 16),
+                                  fontsize=10,
+                                  family='monospace')
 
         f = str(traces[trace][frequency].frequency.center_scaled) + \
             " " + traces[trace].frequency.unit
-        self.text2 = plt.annotate(f, xy=(x, y), textcoords="offset points", xytext=(
-            0, 8), fontsize=8, family='monospace')
+        self.text2 = plt.annotate(f,
+                                  xy=(x, y),
+                                  textcoords="offset points",
+                                  xytext=(0, 8),
+                                  fontsize=8,
+                                  family='monospace')
         marks.append(self)
         plt.draw()
 
@@ -102,7 +120,7 @@ class MarkButton(ToolBase):
         if res is False:
             pass
         else:
-            mark(res[1], str(res[0]+str.lower(f_unit)))
+            mark(res[1], str(res[0] + str.lower(f_unit)))
 
 
 class GroupHideTool(ToolToggleBase):
@@ -116,8 +134,7 @@ class GroupHideTool(ToolToggleBase):
 
     def enable(self, *args):
 
-        traces[self.gid].plot_s_db(
-            label=self.gid, gid=self.gid)
+        traces[self.gid].plot_s_db(label=self.gid, gid=self.gid)
         traces_active.update({self.gid: True})
         self.redraw()
 
@@ -129,7 +146,7 @@ class GroupHideTool(ToolToggleBase):
         for mk in marks:
             if mk.trace == self.gid:
                 mk.remove()
-        del[traces_active[self.gid]]
+        del [traces_active[self.gid]]
         self.redraw()
 
     def redraw(self, *args):
@@ -152,10 +169,16 @@ class markbox(simpledialog.Dialog):
 
         self.textbox1 = tk.Entry(me)
         self.listbox1 = tk.Listbox(me, height=4)
-        self.button_ok = tk.Button(me, command=lambda: self.ok_click(
-            self.textbox1.get(), self.listbox1.get(tk.ACTIVE)), text='OK', width=10)
-        self.button_cancel = tk.Button(
-            me, command=lambda: self.cancel_click(), text='Cancel', width=10)
+        self.button_ok = tk.Button(
+            me,
+            command=lambda: self.ok_click(self.textbox1.get(),
+                                          self.listbox1.get(tk.ACTIVE)),
+            text='OK',
+            width=10)
+        self.button_cancel = tk.Button(me,
+                                       command=lambda: self.cancel_click(),
+                                       text='Cancel',
+                                       width=10)
 
         self.button_ok.grid(row=3, column=2, padx=5, pady=5)
         self.button_cancel.grid(row=3, column=1, padx=5, pady=5)
