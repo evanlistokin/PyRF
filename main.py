@@ -86,9 +86,7 @@ class mark():
         plt.draw()
 
     def remove(self):
-
-        for x in self.plot:
-            x.remove()
+        self.plot[0].remove()
         self.text1.remove()
         self.text2.remove()
 
