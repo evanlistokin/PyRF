@@ -9,7 +9,6 @@ from matplotlib import pyplot as plt
 from matplotlib.backend_tools import ToolBase, ToolToggleBase
 
 plt.rcParams['toolbar'] = 'toolmanager'
-# .rcParams['font.family'] = 'monospace'
 
 marks = []
 traces = {}
