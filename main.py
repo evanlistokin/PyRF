@@ -27,11 +27,16 @@ def main():
 
     fig = plt.figure()
     data_file = tk.filedialog.askopenfilename()
+
     if not data_file:
-        print("No file selected")
+        tk.simpledialog.messagebox._show("PyRF", "No file selected.")
+        return
+    try:
+        data = rf.Network(data_file, f_unit=f_unit)
+    except Exception:
+        simpledialog.messagebox.showerror("PyRF", str(sys.exc_info()[1]))
         return
 
-    data = rf.Network(data_file, f_unit=f_unit)
     traces.update({'S11': data.s11})
     traces.update({'S12': data.s12})
     traces.update({'S21': data.s21})
@@ -49,10 +54,12 @@ def main():
             trace, GroupHideTool, gid=trace)
         fig.canvas.manager.toolbar.add_tool(trace, 'trace')
 
-    fig.text(0.99, 0.01, str(data.frequency), fontsize=8, family='monospace', ha='right')
+    fig.text(0.99, 0.01, str(data.frequency),
+             fontsize=8, family='monospace', ha='right')
 
     fig.text(0.01, 0.035, time.ctime(os.path.getctime(
         data_file)), fontsize=8, family='monospace')
+
     fig.text(0.01, 0.01, data_file, fontsize=8, family='monospace')
     mark("S21", "1000mhz")
     plt.show()
