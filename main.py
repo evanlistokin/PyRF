@@ -52,20 +52,11 @@ def main():
                                                 gid=trace)
         fig.canvas.manager.toolbar.add_tool(trace, 'trace')
 
-    fig.text(0.99,
-             0.01,
-             str(data.frequency),
-             fontsize=8,
-             family='monospace',
-             ha='right')
+    fig.text(0.99, 0.01, str(data.frequency), fontsize=8, ha='right')
 
-    fig.text(0.01,
-             0.035,
-             time.ctime(os.path.getctime(data_file)),
-             fontsize=8,
-             family='monospace')
+    fig.text(0.01, 0.035, time.ctime(os.path.getctime(data_file)), fontsize=8)
 
-    fig.text(0.01, 0.01, data_file, fontsize=8, family='monospace;')
+    fig.text(0.01, 0.01, data_file, fontsize=8)
 
     mark("S21", "1000mhz")
     plt.show()
@@ -82,8 +73,7 @@ class mark():
                                   xy=(x, y),
                                   textcoords="offset points",
                                   xytext=(0, 16),
-                                  fontsize=10,
-                                  family='monospace')
+                                  fontsize=10)
 
         f = str(traces[trace][frequency].frequency.center_scaled) + \
             " " + traces[trace].frequency.unit
@@ -91,8 +81,7 @@ class mark():
                                   xy=(x, y),
                                   textcoords="offset points",
                                   xytext=(0, 8),
-                                  fontsize=8,
-                                  family='monospace')
+                                  fontsize=8)
         marks.append(self)
         plt.draw()
 
