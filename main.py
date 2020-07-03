@@ -9,19 +9,15 @@ from tkinter import simpledialog
 
 plt.rcParams['toolbar'] = 'toolmanager'
 # .rcParams['font.family'] = 'monospace'
-dark = False
 
 marks = []
 traces = {}
 traces_active = {}
-colors = {'S11': '#1f77b4', 'S12': '#ff7f0e',
-          'S21': '#2ca02c', 'S22': '#d62728'}
 f_unit = "MHz"
 
 
 def main():
     global traces
-    global colors
 
     plt.style.use('default')
 
@@ -72,8 +68,8 @@ class mark():
         self.y = y = float(traces[trace][frequency].s_db)
         self.x = x = float(traces[trace][frequency].frequency.f)
         self.plot = plt.plot(x, y, marker="|", color='black')
-        self.text1 = plt.annotate(round(y, 4), xy=(
-            x, y), textcoords="offset points", xytext=(0, 16), fontsize=10, family='monospace')
+        self.text1 = plt.annotate(round(y, 4), xy=(x, y),
+                                  textcoords="offset points", xytext=(0, 16), fontsize=10, family='monospace')
 
         f = str(traces[trace][frequency].frequency.center_scaled) + \
             " " + traces[trace].frequency.unit
@@ -121,7 +117,7 @@ class GroupHideTool(ToolToggleBase):
     def enable(self, *args):
 
         traces[self.gid].plot_s_db(
-            label=self.gid, gid=self.gid, color=colors[self.gid])
+            label=self.gid, gid=self.gid)
         traces_active.update({self.gid: True})
         self.redraw()
 
