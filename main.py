@@ -49,15 +49,9 @@ def main():
             trace, GroupHideTool, gid=trace)
         fig.canvas.manager.toolbar.add_tool(trace, 'trace')
 
-    l1 = "Start: " + str(data.frequency.start_scaled) + " " + data.frequency.unit + \
-        " Stop: " + str(data.frequency.stop_scaled) + " " + data.frequency.unit
-    l2 = "Span: " + str(data.frequency.span_scaled) + " " + \
-        data.frequency.unit + " Points: " + str(data.frequency.npoints)
+    fig.text(0.99, 0.01, str(data.frequency), fontsize=8, family='monospace', ha='right')
 
-    fig.text(0.99, 0.035, l1, fontsize=8, family='monospace', ha='right')
-    fig.text(0.99, 0.01, l2, fontsize=8, family='monospace', ha='right')
-
-    fig.text(0.01, 0.035, time.ctime(os.path.getmtime(
+    fig.text(0.01, 0.035, time.ctime(os.path.getctime(
         data_file)), fontsize=8, family='monospace')
     fig.text(0.01, 0.01, data_file, fontsize=8, family='monospace')
     mark("S21", "1000mhz")
