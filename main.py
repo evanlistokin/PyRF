@@ -22,7 +22,8 @@ def main():
     plt.style.use('default')
 
     fig = plt.figure()
-    data_file = tk.filedialog.askopenfilename()
+    data_file = tk.filedialog.askopenfilename(
+        filetypes=[('.SnP Touchstone File', '.S*P')])
 
     if not data_file:
         tk.simpledialog.messagebox._show("PyRF", "No file selected.")
